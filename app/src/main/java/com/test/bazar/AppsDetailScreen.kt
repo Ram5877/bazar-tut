@@ -1,7 +1,6 @@
 package com.test.bazar
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,10 +21,12 @@ import coil3.compose.AsyncImage
 @Composable
 fun AppsDetailsScreen(appId: Int) {
     val app = AppRepository.appList.find { it.id == appId }
-    Column(Modifier
-        .fillMaxSize()
-        .background(Color.Black)
-        .padding(16.dp)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(16.dp)
+    ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -41,10 +42,16 @@ fun AppsDetailsScreen(appId: Int) {
                 contentScale = ContentScale.Crop
             )
         }
-        Column (Modifier.fillMaxWidth().padding(16.dp), horizontalAlignment = Alignment.End){
+        Column(Modifier
+            .fillMaxWidth()
+            .padding(16.dp), horizontalAlignment = Alignment.End) {
             Text(app!!.name, fontSize = 48.sp, color = Color.White)
             Text(app.description, fontSize = 38.sp, color = Color.White)
-            Text(text = if (app?.price == 0) "رایگان" else "${app?.price} تومان", fontSize = 38.sp, color = Color.White)
+            Text(
+                text = if (app?.price == 0) "رایگان" else "${app?.price} تومان",
+                fontSize = 38.sp,
+                color = Color.White
+            )
         }
     }
 

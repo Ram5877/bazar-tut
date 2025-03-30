@@ -42,11 +42,10 @@ import com.test.bazar.ui.theme.BazarTheme
 
 
 @Composable
-fun MainScreen(viewModel: BazarViewModel, sharedPreferences : SharedPreferences){
+fun MainScreen(viewModel: BazarViewModel, sharedPreferences: SharedPreferences) {
     BazarTheme {
         val navController = rememberNavController()
         var selectedAppId = sharedPreferences.getInt("APP_ID", -1)
-
 
 
         val context = LocalContext.current
@@ -54,8 +53,8 @@ fun MainScreen(viewModel: BazarViewModel, sharedPreferences : SharedPreferences)
         BackHandler {
 
 
-        val currentRoute = navController.currentBackStackEntry?.destination?.route
-            if (currentRoute == AppScreen.AppsDetails.name){
+            val currentRoute = navController.currentBackStackEntry?.destination?.route
+            if (currentRoute == AppScreen.AppsDetails.name) {
                 sharedPreferences.edit().putInt("APP_ID", -1).commit()
                 navController.navigate(AppScreen.AppsScreen.name)
                 context.getActivity()?.finish()
@@ -72,7 +71,7 @@ fun MainScreen(viewModel: BazarViewModel, sharedPreferences : SharedPreferences)
             startDestination = if (selectedAppId == -1) AppScreen.AppsScreen.name else AppScreen.AppsDetails.name
         ) {
             composable(route = AppScreen.AppsScreen.name) {
-                AppsPage(viewModel,Modifier){
+                AppsPage(viewModel, Modifier) {
                     sharedPreferences.edit().putInt("APP_ID", it).commit()
                     selectedAppId = it
                     navController.navigate(AppScreen.AppsDetails.name)
@@ -94,7 +93,7 @@ fun MainScreen(viewModel: BazarViewModel, sharedPreferences : SharedPreferences)
 }
 
 @Composable
-fun BottomBar (viewModel: BazarViewModel) {
+fun BottomBar(viewModel: BazarViewModel) {
     val selectedPage by viewModel.selectedPage.collectAsState()
     Row(
         modifier = Modifier
@@ -127,12 +126,13 @@ fun BottomBar (viewModel: BazarViewModel) {
 }
 
 @Composable
-fun BottomBarIcons(icon: Int,
-                   iconFilled: Int,
-                   text: String,
-                   isIconFilled: Boolean,
-                   onPressed: () -> Unit
-){
+fun BottomBarIcons(
+    icon: Int,
+    iconFilled: Int,
+    text: String,
+    isIconFilled: Boolean,
+    onPressed: () -> Unit
+) {
     Column(
         modifier = Modifier
             .padding(12.dp)
@@ -144,7 +144,7 @@ fun BottomBarIcons(icon: Int,
         Icon(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 8.dp),
-            painter = painterResource(if (isIconFilled) iconFilled else icon) ,
+            painter = painterResource(if (isIconFilled) iconFilled else icon),
             contentDescription = "",
             tint = Color.LightGray
         )
@@ -155,21 +155,25 @@ fun BottomBarIcons(icon: Int,
 }
 
 @Composable
-fun TopBar (){
-    Row (Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.CenterVertically){
-        IconButton(onClick = {},
+fun TopBar() {
+    Row(Modifier
+        .fillMaxWidth()
+        .padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        IconButton(
+            onClick = {},
         ) {
-            Icon(Icons.Outlined.AccountCircle, null,
+            Icon(
+                Icons.Outlined.AccountCircle, null,
                 modifier = Modifier.size(78.dp),
                 tint = Color.White
-                )
+            )
         }
         TextBar(viewModel())
     }
 }
 
 @Composable
-fun TextBar(viewModel: BazarViewModel){
+fun TextBar(viewModel: BazarViewModel) {
     val searchValue by viewModel.searchValue.collectAsState()
 
     TextField(
@@ -187,10 +191,13 @@ fun TextBar(viewModel: BazarViewModel){
 
             textAlign = TextAlign.Right
         ),
-        placeholder = { Text(modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Right,
-            text = "جستجو در بازی ها و برنامه ها",
-            ) },
+        placeholder = {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Right,
+                text = "جستجو در بازی ها و برنامه ها",
+            )
+        },
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,

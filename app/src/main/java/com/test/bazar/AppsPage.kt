@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -31,11 +30,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 
 
@@ -44,16 +41,20 @@ fun AppsPage(viewModel: BazarViewModel, modifier: Modifier, onAppClick: (Int) ->
 //    val appList by viewModel.appList.collectAsState()
     val selectedApp by viewModel.selectedApp.collectAsState()
     val newAppList by viewModel.newAppList.collectAsState()
-    LazyColumn(modifier
-        .fillMaxSize()
-        .background(Color.Black)) {
+    LazyColumn(
+        modifier
+            .fillMaxSize()
+            .background(Color.Black)
+    ) {
         item {
             TopBar()
             ShowPicture(viewModel, selectedApp)
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                LazyRow(Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)) {
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
                     items(newAppList) { app ->
                         Items(app.imageUrl, app.name, app.rate.toString(), app.price.toString()) {
                             viewModel.updateSelectedPicture(app)
@@ -63,11 +64,13 @@ fun AppsPage(viewModel: BazarViewModel, modifier: Modifier, onAppClick: (Int) ->
                 }
             }
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                LazyRow(Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)) {
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
                     items(newAppList) { app ->
-                        Items(app.imageUrl, app.name,app.rate.toString(), app.price.toString()) {
+                        Items(app.imageUrl, app.name, app.rate.toString(), app.price.toString()) {
                             viewModel.updateSelectedPicture(app)
                             onAppClick(app.id)
                         }
@@ -75,9 +78,11 @@ fun AppsPage(viewModel: BazarViewModel, modifier: Modifier, onAppClick: (Int) ->
                 }
             }
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                LazyRow(Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)) {
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
                     items(newAppList) { app ->
                         Items(app.imageUrl, app.name, app.rate.toString(), app.price.toString()) {
                             viewModel.updateSelectedPicture(app)
@@ -111,8 +116,10 @@ fun Items(imageUrl: String, appName: String, rate: String, price: String, onAppC
             contentScale = ContentScale.Crop
 
         )
-        Column (Modifier.padding(start = 12.dp)){
-            Row (Modifier.fillMaxWidth().background(Color.Blue)){
+        Column(Modifier.padding(start = 12.dp)) {
+            Row(Modifier
+                .fillMaxWidth()
+                .background(Color.Blue)) {
                 Text(
                     text = appName,
                     fontSize = 12.sp,

@@ -9,7 +9,6 @@ import java.util.TimerTask
 
 class BazarViewModel : ViewModel() {
 
-
     val searchValue = MutableStateFlow("")
     val newAppList = MutableStateFlow(mutableListOf<App>())
 
@@ -25,17 +24,13 @@ class BazarViewModel : ViewModel() {
                 }
             }
         }
-
-
     }
 
     val featuredAppIdList = listOf(
         1, 3, 5, 0
     )
 
-
     val featuredAppList: List<App>
-
 
     val selectedPage = MutableStateFlow(Pages.Apps)
 
@@ -56,16 +51,13 @@ class BazarViewModel : ViewModel() {
                     selectedFeaturedIndex.value = 0
                 }
                 selectedApp.value = featuredAppList[selectedFeaturedIndex.value]
-
             }
         }, 0, 2000L)
     }
 
-
     fun updateSelectedPicture(imageUrl: App) {
         viewModelScope.launch {
             selectedApp.value = imageUrl
-
         }
     }
 }
